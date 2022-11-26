@@ -40,6 +40,7 @@ FLASH (rx)     : ORIGIN = 0x08000000, LENGTH = 16K
 RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 4K
 
 /* Peripherals */
+SPI1(rw)       : ORIGIN = 0x40013000, LENGTH = 1K
 RCC(rw)        : ORIGIN = 0x40021000, LENGTH = 1K
 GPIOA(rw)      : ORIGIN = 0x48000000, LENGTH = 1K
 }
@@ -161,6 +162,11 @@ SECTIONS
 
 
 /*************** PERIPHERALS *************************************************/
+
+  .spi1 (NOLOAD) :
+  {
+    *(.spi1)
+  } > SPI1
 
   .rcc (NOLOAD) :
   {
