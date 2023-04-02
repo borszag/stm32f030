@@ -26,6 +26,26 @@ typedef union {
 typedef union {
   uint32_t reg;
   struct {
+    uint32_t sw       : 2;
+    uint32_t sws      : 2;
+    uint32_t hpre     : 4;
+    uint32_t ppre     : 3;
+    uint32_t          : 3;
+    uint32_t adcpre   : 1;
+    uint32_t          : 1;
+    uint32_t pllsrc   : 1;
+    uint32_t pllxtpre : 1;
+    uint32_t pllmul   : 4;
+    uint32_t          : 2;
+    uint32_t mco      : 4;
+    uint32_t mcopre   : 3;
+    uint32_t pllnodiv : 1;
+  };
+} rcc_cfgr_t;
+
+typedef union {
+  uint32_t reg;
+  struct {
     uint32_t dmaen   :  1;
     uint32_t         :  1;
     uint32_t sramen  :  1;
@@ -68,11 +88,12 @@ typedef union {
 } rcc_apb2enr_t;
 
 typedef struct {
-  rcc_cr_t     cr;
-  RESERVED(4);
+  rcc_cr_t      cr;
+  rcc_cfgr_t    cfgr;
+  RESERVED(3);
   rcc_ahbenr_t  ahbenr;
   rcc_apb2enr_t apb2enr;
 } rcc_t;
 
-extern volatile rcc_t rcc PERIPHERAL(rcc);
+extern volatile rcc_t rcc;
 #endif

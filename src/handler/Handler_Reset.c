@@ -2,6 +2,7 @@
 #include "handler/util.h"
 #include "hal/rcc.h"
 #include "hal/gpio.h"
+#include "hal/stk.h"
 
 HANDLER void Handler_Reset(void) {
 
@@ -30,16 +31,16 @@ HANDLER void Handler_Reset(void) {
   rcc.ahbenr.iopaen  = 1;
   gpioa.moder.moder4 = 1;
 
-  volatile int32_t i = 0;
-  while(1) {
-    for (i = 0; i < 70000; ++i);
-    gpioa.odr.odr4 = !gpioa.odr.odr4;
-  }
+  stk.cvr.current = 0;
+  stk.rvr.reload = 4000000;
+  stk.csr.clksource = 1;
+  stk.csr.tickint = 1;
+  stk.csr.enable = 1;
 
   // It is recommended to put an infinite loop at the end of this
   // function to avoid a return from it because there is nowhere to
   // return to.
   while(1) {
-    //asm("nop");
+    asm("wfi");
   }
 }

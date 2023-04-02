@@ -39,6 +39,11 @@ MEMORY
 FLASH (rx)     : ORIGIN = 0x08000000, LENGTH = 16K
 RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 4K
 
+/* Cortex-M0 core peripherals */
+STK(rw)        : ORIGIN = 0xE000E010, LENGTH = 16
+NVIC(rw)       : ORIGIN = 0xE000E100, LENGTH = 1K
+SCB(rw)        : ORIGIN = 0xE000ED00, LENGTH = 36
+
 /* Peripherals */
 SPI1(rw)       : ORIGIN = 0x40013000, LENGTH = 1K
 RCC(rw)        : ORIGIN = 0x40021000, LENGTH = 1K
@@ -160,6 +165,22 @@ SECTIONS
    . = ALIGN(4);
   } > RAM
 
+/*************** CORTEX-M0 CORE PERIPHERALS **********************************/
+
+  .stk (NOLOAD) :
+  {
+    *(.stk)
+  } > STK
+
+  .nvic (NOLOAD) :
+  {
+    *(.nvic)
+  } > NVIC
+
+  .scb (NOLOAD) :
+  {
+    *(.scb)
+  } > SCB
 
 /*************** PERIPHERALS *************************************************/
 
