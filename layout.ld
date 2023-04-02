@@ -48,6 +48,10 @@ SCB(rw)        : ORIGIN = 0xE000ED00, LENGTH = 36
 SPI1(rw)       : ORIGIN = 0x40013000, LENGTH = 1K
 RCC(rw)        : ORIGIN = 0x40021000, LENGTH = 1K
 GPIOA(rw)      : ORIGIN = 0x48000000, LENGTH = 1K
+GPIOB(rw)      : ORIGIN = 0x48000400, LENGTH = 1K
+GPIOC(rw)      : ORIGIN = 0x48000800, LENGTH = 1K
+GPIOD(rw)      : ORIGIN = 0x48000C00, LENGTH = 1K
+GPIOF(rw)      : ORIGIN = 0x48001400, LENGTH = 1K
 }
 
 /* Define output sections */
@@ -198,4 +202,24 @@ SECTIONS
   {
     *(.gpioa)
   } > GPIOA
+
+  .gpiob (NOLOAD) :
+  {
+    *(.gpiob)
+  } > GPIOB
+
+  .gpioc (NOLOAD) :
+  {
+    *(.gpioc)
+  } > GPIOC
+
+  .gpiod (NOLOAD) :
+  {
+    *(.gpiod)
+  } > GPIOD
+
+  .gpiof (NOLOAD) :
+  {
+    *(.gpiof)
+  } > GPIOF
 }
