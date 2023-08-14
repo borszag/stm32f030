@@ -45,6 +45,7 @@ NVIC(rw)       : ORIGIN = 0xE000E100, LENGTH = 1K
 SCB(rw)        : ORIGIN = 0xE000ED00, LENGTH = 36
 
 /* Peripherals */
+I2C1(rw)       : ORIGIN = 0x40005400, LENGTH = 1K
 SPI1(rw)       : ORIGIN = 0x40013000, LENGTH = 1K
 RCC(rw)        : ORIGIN = 0x40021000, LENGTH = 1K
 GPIOA(rw)      : ORIGIN = 0x48000000, LENGTH = 1K
@@ -187,6 +188,11 @@ SECTIONS
   } > SCB
 
 /*************** PERIPHERALS *************************************************/
+
+  .i2c1 (NOLOAD) :
+  {
+    *(.i2c1)
+  } > I2C1
 
   .spi1 (NOLOAD) :
   {
